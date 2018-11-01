@@ -1,9 +1,7 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const path = require('path')
 
-module.exports = (env, args) => ({
-  //B站已经有babel-polyfill
-  //entry: args.mode === 'production' ? ['babel-polyfill', './src/index.js'] : ['./src/index.js'],
+module.exports = () => ({
   entry: {
     web: './src/web.js',
     hook: './src/hook.js'

@@ -1,23 +1,24 @@
 import burl from 'bilibili-playurl'
 import { jQuery as $ } from 'proxyee-down-extension-sdk'
 
-export default {
-  async getDownLink(cid, quality) {
-    const url = await burl(cid, { season_type: 0, quality: quality })
-    return new Promise((resolve, reject) => {
-      $.ajax({
-        url,
-        success(response) {
-          resolve(response)
-        },
-        error(request, status, error) {
-          reject(error)
-        }
-      })
+const getDownLink = async (cid, quality, seasonType) => {
+  const url = await burl(cid, { season_type: seasonType, quality: quality })
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url,
+      success(response) {
+        resolve(response)
+      },
+      error(request, status, error) {
+        reject(error)
+      }
     })
-  },
-  async buildResolveForm(cid, quality, title) {
-    const result = await this.getDownLink(cid, 80)
+  })
+}
+
+export default {
+  async buildResolveForm(cid, quality, seasonType, title) {
+    const result = await getDownLink(cid, quality, seasonType)
     const downInfo = result.durl[0]
     const url = !result.durl[0].url.startsWith('https')
       ? result.durl[0].url.replace(/^http/i, 'https')
@@ -31,7 +32,8 @@ export default {
         fileName: title + '.flv',
         totalSize: downInfo.size,
         supportRange: true
-      }
+      },
+      config: { connections: 16 }
     }
   }
 }

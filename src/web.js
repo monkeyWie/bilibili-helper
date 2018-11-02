@@ -1,38 +1,33 @@
-import pdownSdk from 'proxyee-down-extension-sdk'
-
-/* const playInfo = { ...window.__playinfo__ }
-burl(window.__INITIAL_STATE__.videoData.cid, { season_type: 0, quality: 32 }).then(function(url) {
-  console.log(url)
-}) */
-
 window.onload = () => {
   const checkLoad = setInterval(() => {
     //检查播放器是否加载完成
     if (window.$ && $('div.bilibili-player-video-control>div').size() > 0) {
       clearInterval(checkLoad)
       const api = require('./common/api').default
-      const downDivJq = $(require('./views/DownButton').default)
-      $('div.bilibili-player-video-control div[name=pause_button]').after(downDivJq)
-      downDivJq.on('click', 'li.bpui-selectmenu-list-row', async function() {
+      const pdownSdk = require('proxyee-down-extension-sdk').default
+      const downDivJq =
+        $('div.old-btn').size() > 0
+          ? require('./views/DownButtonNew').default
+          : require('./views/DownButtonOld').default
+      $('div.bilibili-player-video-control div.bilibili-player-video-btn-start').after(downDivJq)
+      downDivJq.on('click', 'li[data-value]', async function() {
         const quality = $(this).attr('data-value')
-        const result = await api.getDownLink(window.__INITIAL_STATE__.videoData.cid, quality)
-        const downInfo = result.durl[0]
-        const url = downInfo.url.replace(/^http/, 'https')
-        pdownSdk.createTask({
-          request: {
-            url: url,
-            heads: { referer: 'https://bilibili.com' }
-          },
-          response: {
-            fileName:
-              $('#viewbox_report')
-                .find('h1>span')
-                .text() + '.flv',
-            totalSize: downInfo.size,
-            supportRange: true
-          },
-          config: { connections: 16 }
-        })
+        try {
+          let seasonType
+          let cid
+          if (window.__INITIAL_STATE__.videoData) {
+            seasonType = 0
+            cid = window.__INITIAL_STATE__.videoData.cid
+          } else {
+            seasonType = 1
+            cid = window.__INITIAL_STATE__.epInfo.cid
+          }
+          const createForm = await api.buildResolveForm(cid, quality, seasonType, $('h1[title]').attr('title'))
+          pdownSdk.createTask(createForm)
+        } catch (e) {
+          alert('获取下载链接失败')
+          console.error(e)
+        }
       })
     }
   }, 200)

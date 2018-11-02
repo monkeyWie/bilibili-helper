@@ -7,13 +7,12 @@ const button = $(`
     </span>
     <div class="bpui-selectmenu-arrow bpui-icon bpui-icon-arrow-down"></div>
     <ul class="bpui-selectmenu-list bpui-selectmenu-list-left" style="display: none;">
-      <li class="bpui-selectmenu-list-row" data-value="112">
-        <span class="bilibili-player-video-quality-text">高清 </span>
+    <li class="bpui-selectmenu-list-row" data-value="112">
+        <span class="bilibili-player-video-quality-text">超清 </span>
         <span>1080P+</span>
-        <span class="bilibili-player-bigvip">大会员</span>
       </li>
       <li class="bpui-selectmenu-list-row" data-value="80">
-        <span class="bilibili-player-video-quality-text">高清 </span>
+        <span class="bilibili-player-video-quality-text">超清 </span>
         <span>1080P</span>
       </li>
       <li class="bpui-selectmenu-list-row" data-value="64">
@@ -34,40 +33,17 @@ const button = $(`
 </div>
 `)
 
-button.find('span.bpui-selectmenu-txt').hover(
-  function() {
-    $(this)
-      .siblings('ul')
-      .show()
-  },
-  function() {
-    $(this)
-      .siblings('ul')
-      .hide()
-  }
-)
-button.find('ul.bpui-selectmenu-list').hover(
-  function() {
-    $(this).show()
-  },
-  function() {
-    $(this).hide()
-  }
-)
 button.find('span.bpui-selectmenu-txt').click(function() {
-  if (
-    $(this)
-      .siblings('ul')
-      .is(':hidden')
-  ) {
-    $(this)
-      .siblings('ul')
-      .show()
+  const ul = button.find('ul.bpui-selectmenu-list')
+  if (ul.is(':hidden')) {
+    ul.show()
   } else {
-    $(this)
-      .siblings('ul')
-      .hide()
+    ul.hide()
   }
+})
+
+button.find('li.bpui-selectmenu-list-row').click(function() {
+  button.find('ul.bpui-selectmenu-list').hide()
 })
 
 export default button

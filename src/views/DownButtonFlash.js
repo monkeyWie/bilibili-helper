@@ -1,12 +1,8 @@
 const button = $(`
-<div class="bilibili-player-video-btn bilibili-player-video-btn-quality">
-  <div class="bilibili-player-video-quality-menu bpui-component bpui-selectmenu">
-    <span class="bpui-selectmenu-txt">
-      <span class="bilibili-player-video-quality-text">下载 </span>
-      <span>PD下载</span>
-    </span>
-    <div class="bpui-selectmenu-arrow bpui-icon bpui-icon-arrow-down"></div>
-    <ul class="bpui-selectmenu-list bpui-selectmenu-list-left" style="display: none;">
+<span class="bpui-bilibili-download-btn">
+    <i class="van-icon-download"></i>
+    PD下载
+<ul class="bpui-selectmenu-list bpui-selectmenu-list-left">
     <li class="bpui-selectmenu-list-row" data-value="112">
         <span class="bilibili-player-video-quality-text">超清+ </span>
         <span>1080P+</span>
@@ -29,21 +25,35 @@ const button = $(`
         <span>360P</span>
       </li>
     </ul>
-  </div>
-</div>
+</span>
 `)
 
-button.find('span.bpui-selectmenu-txt').click(function() {
-  const ul = button.find('ul.bpui-selectmenu-list')
-  if (ul.is(':hidden')) {
-    ul.show()
-  } else {
-    ul.hide()
-  }
-})
+const style = `
+.bpui-bilibili-download-btn {
+  margin-left: 30px;
+  position: relative;
+}
+.bpui-bilibili-download-btn .bpui-selectmenu-list {
+  position: absolute;
+  left: 0px;
+  top: 30px;
+  z-index: 999;
+  background: #fff;
+  border: 1px solid #ccd0d7;
+  display: none;
+}
+.bpui-bilibili-download-btn:hover .bpui-selectmenu-list {
+  display: inherit;
+}
+.bpui-bilibili-download-btn .bpui-selectmenu-list li {
+  padding: 2px 15px;
+}
+.bpui-bilibili-download-btn .bpui-selectmenu-list li:hover {
+  background: #e2e2e2;
+}
+`
 
-button.find('li.bpui-selectmenu-list-row').click(function() {
-  button.find('ul.bpui-selectmenu-list').hide()
-})
-
-export default button
+export default {
+  Button: button,
+  Style: style
+} 

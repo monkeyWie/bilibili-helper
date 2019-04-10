@@ -4,7 +4,7 @@
   "description": "bilibili",
   "main": "index.js",
   "dependencies": {
-    "proxyee-down-extension-sdk": "^1.0.7"
+    "proxyee-down-extension-sdk": "^1.0.10"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

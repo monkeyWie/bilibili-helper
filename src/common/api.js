@@ -1,9 +1,9 @@
 import { jQuery as $ } from 'proxyee-down-extension-sdk'
 
 const sameProtocal = url => {
-  const protocal = window.location.protocol
-  return protocal ? url.replace(/^(http)?s?:\/\//, protocal+'//') : url
-} 
+  const protocal = window.location ? window.location.protocol : null
+  return protocal ? url.replace(/^(http)?s?:\/\//, protocal + '//') : url
+}
 
 const getDownLink = (aid, cid, quality) => {
   const url = sameProtocal('https://api.bilibili.com/x/player/playurl')
@@ -11,8 +11,8 @@ const getDownLink = (aid, cid, quality) => {
     $.ajax({
       url,
       type: 'GET',
-      dataType : 'json',
-      data: {avid: aid, cid, qn: quality, otype: 'json'},
+      dataType: 'json',
+      data: { avid: aid, cid, qn: quality, otype: 'json' },
       success(response) {
         resolve(response)
       },
@@ -43,10 +43,10 @@ export function getViewInfo(aid) {
   const url = sameProtocal('https://api.bilibili.com/x/web-interface/view')
   return new Promise((resolve, reject) => {
     $.ajax({
-      url,
+      url: url,
       type: 'GET',
-      dataType : 'json',
-      data: {aid},
+      dataType: 'json',
+      data: { aid },
       success(response) {
         resolve(response)
       },

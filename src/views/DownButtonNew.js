@@ -15,10 +15,10 @@ const button = $(`
         <div class="bui-select-bridge" style="height: 20px;">
         </div>
         <div class="bui-select-list-wrap">
-          <ul class="bui-select-list" style="bottom: 41px; left: -51px; height: 150px;display:none;">
+          <ul class="bui-select-list" style="bottom: 41px; left: -51px; height: 180px;display:none;">
             <li class="bui-select-item" data-value="112">
               <span class="bilibili-player-video-quality-text">
-                超清
+                超清+
               </span>
               <span>
                 1080P+
@@ -48,7 +48,7 @@ const button = $(`
                 480P
               </span>
             </li>
-            <li class="bui-select-item" data-value="15">
+            <li class="bui-select-item" data-value="16">
               <span class="bilibili-player-video-quality-text">
                 流畅
               </span>

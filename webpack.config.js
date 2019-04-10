@@ -18,8 +18,7 @@ module.exports = () => ({
         use: 'babel-loader',
         include: [
           path.join(__dirname, './src'),
-          path.join(__dirname, './node_modules/proxyee-down-extension-sdk'),
-          path.join(__dirname, './node_modules/bilibili-playurl')
+          path.join(__dirname, './node_modules/proxyee-down-extension-sdk')
         ]
       }
     ]
